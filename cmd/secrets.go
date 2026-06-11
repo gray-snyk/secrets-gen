@@ -44,7 +44,8 @@ func selectRules(rules []generators.SecretRule, provider string) ([]generators.S
 		}
 	}
 	if len(matched) == 0 {
-		return nil, fmt.Errorf("no rules match provider %q", provider)
+		fmt.Fprintf(os.Stderr, "Provider: %q not found. Try secrets-gen --list-providers\n", provider)
+		return nil, errSilent
 	}
 	return matched, nil
 }

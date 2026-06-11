@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
 	"os"
 
@@ -13,6 +14,10 @@ import (
 
 // Version is overridden by goreleaser via -ldflags at build time.
 var Version = "dev"
+
+// errSilent signals that a user-facing message has already been printed and
+// the top-level handler should exit non-zero without printing anything more.
+var errSilent = errors.New("handled")
 
 var (
 	noColor          bool
@@ -111,7 +116,9 @@ func init() {
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Fprintln(os.Stderr, err)
+		if !errors.Is(err, errSilent) {
+			fmt.Fprintln(os.Stderr, err)
+		}
 		os.Exit(1)
 	}
 }
