@@ -52,15 +52,6 @@ Provider matching is case-insensitive substring on the rule's provider field —
 `secrets-gen generate github` matches every GitHub rule and emits one secret
 per rule.
 
-### List
-
-```sh
-secrets-gen list                                       # every rule
-secrets-gen list --provider github                     # filter by provider
-secrets-gen list --severity CRITICAL                   # filter by severity
-secrets-gen list --provider aws --severity CRITICAL    # combine filters
-```
-
 ### Flags
 
 | Flag | Command | Default | Description |
@@ -70,8 +61,6 @@ secrets-gen list --provider aws --severity CRITICAL    # combine filters
 | `--format` | `generate` | `` | Set to `json` for raw JSON output |
 | `--id` | `generate` | `` | Generate a secret for a specific rule ID |
 | `--list-providers` | `generate` | `false` | Print every unique provider and exit |
-| `--provider` | `list` | `` | Filter rules by provider (case-insensitive substring) |
-| `--severity` | `list` | `` | Filter rules by severity |
 | `--no-color` | global | `false` | Disable ANSI colour output |
 
 ## A note on safety

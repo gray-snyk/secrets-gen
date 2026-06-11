@@ -142,7 +142,6 @@ func writeJSON(results []generatedSecret) error {
 }
 
 func writeStyled(results []generatedSecret) {
-	fmt.Println(display.Banner())
 	for _, s := range results {
 		header := fmt.Sprintf("%s   %s",
 			display.TitleStyle.Render(s.Title),
