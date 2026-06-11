@@ -13,7 +13,7 @@ import (
 var ApprovedProviders = []string{
 	"AWS", "Anthropic", "Azure", "Bitbucket", "ClickUp",
 	"Cloudflare", "Datadog", "Docker", "GitHub", "GitLab",
-	"OpenAI", "Square", "Stripe", "npm",
+	"OpenAI", "Stripe", "npm",
 }
 
 type SecretRule struct {

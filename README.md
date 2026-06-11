@@ -58,14 +58,14 @@ Provider matching is case-insensitive substring on the rule's provider field —
 
 ### Supported providers
 
-The tool surfaces a curated set of 14 providers:
+The tool surfaces a curated set of 13 providers:
 
 | | | | |
 | --- | --- | --- | --- |
 | AWS | Anthropic | Azure | Bitbucket |
 | ClickUp | Cloudflare | Datadog | Docker |
-| GitHub | GitLab | OpenAI | Square |
-| Stripe | npm | | |
+| GitHub | GitLab | OpenAI | Stripe |
+| npm | | | |
 
 Any other provider in the underlying metadata is excluded — it won't appear in
 the picker or `--list-providers`, and requesting it directly returns no rules.
