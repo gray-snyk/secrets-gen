@@ -142,15 +142,22 @@ func writeJSON(results []generatedSecret) error {
 }
 
 func writeStyled(results []generatedSecret) {
-	for _, s := range results {
-		header := fmt.Sprintf("%s   %s",
-			display.TitleStyle.Render(s.Title),
-			display.SeverityStyle(s.Severity).Render(strings.ToUpper(s.Severity)),
-		)
-		fmt.Println(header)
+	prevID := ""
+	for i, s := range results {
+		if s.ID != prevID {
+			if i > 0 {
+				fmt.Println()
+			}
+			header := fmt.Sprintf("%s   %s",
+				display.TitleStyle.Render(s.Title),
+				display.SeverityStyle(s.Severity).Render(strings.ToUpper(s.Severity)),
+			)
+			fmt.Println(header)
+			prevID = s.ID
+		}
 		fmt.Println(display.SecretStyle.Render(s.Value))
-		fmt.Println()
 	}
+	fmt.Println()
 }
 
 func printProviders(rules []generators.SecretRule) {
