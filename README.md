@@ -36,32 +36,50 @@ go install github.com/gray-snyk/secrets-gen@latest
 
 ## Usage
 
-### Generate
+Run `secrets-gen` with no arguments to launch an interactive provider picker,
+or pass a provider name to generate secrets for it directly.
 
 ```sh
-secrets-gen generate github               # one fake secret per matching GitHub rule
-secrets-gen generate aws --count 3        # 3 fake secrets per matching AWS rule
-secrets-gen generate stripe --copy        # copy the first result to the clipboard
-secrets-gen generate --id github-personal-access-token
-secrets-gen generate --list-providers     # print every provider known to the tool
-secrets-gen generate aws --format json    # machine-readable output, no styling
-secrets-gen generate aws --no-color | pbcopy   # plain text for piping
+secrets-gen                          # interactive provider picker
+secrets-gen github                   # one fake secret per matching GitHub rule
+secrets-gen aws --count 3            # 3 fake secrets per matching AWS rule
+secrets-gen stripe --copy            # copy the first result to the clipboard
+secrets-gen --id github-personal-access-token
+secrets-gen --list-providers         # print every provider known to the tool
+secrets-gen aws --format json        # machine-readable output, no styling
+secrets-gen aws --no-color | pbcopy  # plain text for piping
 ```
 
+In the interactive picker, use ↑/↓ to navigate, `/` to filter, `Enter` to
+select a provider and generate its secrets, and `q` or `Ctrl+C` to quit.
+
 Provider matching is case-insensitive substring on the rule's provider field —
-`secrets-gen generate github` matches every GitHub rule and emits one secret
-per rule.
+`secrets-gen github` matches every GitHub rule and emits one secret per rule.
+
+### Supported providers
+
+The tool surfaces a curated set of 14 providers:
+
+| | | | |
+| --- | --- | --- | --- |
+| AWS | Anthropic | Azure | Bitbucket |
+| ClickUp | Cloudflare | Datadog | Docker |
+| GitHub | GitLab | OpenAI | Square |
+| Stripe | npm | | |
+
+Any other provider in the underlying metadata is excluded — it won't appear in
+the picker or `--list-providers`, and requesting it directly returns no rules.
 
 ### Flags
 
-| Flag | Command | Default | Description |
-| --- | --- | --- | --- |
-| `--count, -n` | `generate` | `1` | Secrets to generate per matching rule |
-| `--copy, -c` | `generate` | `false` | Copy the first generated secret to the clipboard |
-| `--format` | `generate` | `` | Set to `json` for raw JSON output |
-| `--id` | `generate` | `` | Generate a secret for a specific rule ID |
-| `--list-providers` | `generate` | `false` | Print every unique provider and exit |
-| `--no-color` | global | `false` | Disable ANSI colour output |
+| Flag | Default | Description |
+| --- | --- | --- |
+| `--count, -n` | `1` | Secrets to generate per matching rule |
+| `--copy, -c` | `false` | Copy the first generated secret to the clipboard |
+| `--format` | `` | Set to `json` for raw JSON output |
+| `--id` | `` | Generate a secret for a specific rule ID |
+| `--list-providers` | `false` | Print every unique provider and exit |
+| `--no-color` | `false` | Disable ANSI colour output |
 
 ## A note on safety
 

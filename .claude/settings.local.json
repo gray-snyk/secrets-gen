@@ -9,7 +9,8 @@
       "Read(//tmp/**)",
       "Bash(python3 -c ' *)",
       "Read(//private/tmp/goreleaser-check/**)",
-      "Bash(goreleaser check *)"
+      "Bash(goreleaser check *)",
+      "Bash(go mod *)"
     ]
   }
 }
