@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p /Users/gray-snyk/Downloads/dev/secrets-gen/assets)",
+      "Bash(cp /Users/gray-snyk/Downloads/secret_type_metadata.json /Users/gray-snyk/Downloads/dev/secrets-gen/assets/secret_type_metadata.json)",
+      "Bash(go build *)",
+      "Bash(go run *)",
+      "Bash(go get *)",
+      "Read(//tmp/**)",
+      "Bash(python3 -c ' *)",
+      "Read(//private/tmp/goreleaser-check/**)",
+      "Bash(goreleaser check *)"
+    ]
+  }
+}

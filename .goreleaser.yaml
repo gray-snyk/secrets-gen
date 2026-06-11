@@ -1,0 +1,81 @@
+version: 2
+
+project_name: secrets-gen
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: secrets-gen
+    main: ./
+    binary: secrets-gen
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ignore:
+      - goos: windows
+        goarch: arm64
+    flags:
+      - -trimpath
+    ldflags:
+      - -s -w -X github.com/gray-snyk/secrets-gen/cmd.Version={{.Version}}
+
+archives:
+  - id: default
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    formats: [tar.gz]
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+    files:
+      - README.md
+      - LICENSE*
+
+checksum:
+  name_template: "checksums.txt"
+
+snapshot:
+  version_template: "{{ incpatch .Version }}-next"
+
+changelog:
+  sort: asc
+  use: github
+  groups:
+    - title: Features
+      regexp: '^.*?feat(\(.+\))?!?:.+$'
+      order: 0
+    - title: Bug fixes
+      regexp: '^.*?fix(\(.+\))?!?:.+$'
+      order: 1
+    - title: Others
+      order: 999
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^chore:"
+      - "merge conflict"
+
+homebrew_casks:
+  - name: secrets-gen
+    repository:
+      owner: gray-snyk
+      name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    homepage: "https://github.com/gray-snyk/secrets-gen"
+    description: "Generate fake secrets in real service formats for scanner testing"
+    license: "MIT"
+    commit_author:
+      name: goreleaser-bot
+      email: bot@goreleaser.com
+
+release:
+  draft: false
+  prerelease: auto
